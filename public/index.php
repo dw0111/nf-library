@@ -1,27 +1,34 @@
 <?php
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 error_reporting(E_ALL);
+
 
 $whoops = new \Whoops\Run;
 $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 $whoops->register();
 
-$uri = $_SERVER['REQUEST_URI'];
-$verb = $_SERVER['REQUEST_METHOD'];
+$request = Request::createFromGlobals();
+$response = new Response('404 - Not found', 404);
 $routes = require __DIR__ . '/../config/routes.php';
-$response = '';
+
+$verb = $_SERVER['REQUEST_METHOD'];
+
 
 foreach ($routes as $route) {
-  if ($verb === $route[0] && $uri === $route[1]) {
-    $response = call_user_func($route[2]);
+  if ($request->getMethod() === $route[0] && $request->getRequestUri() === $route[1]) {
+    $content = call_user_func($route[2]);
+    $response->setContent($content);
   }
 }
 
-if (!response) {
+if (!$response->getContent()) {
   http_response_code(404);
-  $response = '404 - Not found';
+  $response = new Response('404 - Not found', 404);
 }
 
-echo $response;
+$response->send();
