@@ -8,5 +8,7 @@
             "email": "daniel_wiesner@gmx.de"
         }
     ],
-    "require": {}
+    "require": {
+        "filp/whoops": "^2.11"
+    }
 }
