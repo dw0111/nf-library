@@ -1,0 +1,12 @@
+{
+    "name": "neuefischedw/nf-library",
+    "description": "Library app as PHP playground",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniel Wiesner",
+            "email": "daniel_wiesner@gmx.de"
+        }
+    ],
+    "require": {}
+}
