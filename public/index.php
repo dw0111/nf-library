@@ -1,14 +1,17 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+require_once __DIR__ . '/../vendor/autoload.php';
 
-$number = 42 / 0;
+error_reporting(E_ALL);
+
+$whoops = new \Whoops\Run;
+$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+$whoops->register();
 
 $uri = $_SERVER['REQUEST_URI'];
 $verb = $_SERVER['REQUEST_METHOD'];
 $routes = require __DIR__ . '/../config/routes.php';
-$response = '404 - Not found';
+$response = '';
 
 foreach ($routes as $route) {
   if ($verb === $route[0] && $uri === $route[1]) {
@@ -16,5 +19,9 @@ foreach ($routes as $route) {
   }
 }
 
+if (!response) {
+  http_response_code(404);
+  $response = '404 - Not found';
+}
 
 echo $response;
