@@ -2,24 +2,26 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
+
 class CartController extends AbstractController
 {
-  public static function show()
+  public function show(): Response
+  {
+    return $this->render('cart');
+  }
+
+  public function add()
   {
     return file_get_contents(__DIR__ . '/../../templates/cart.html');
   }
 
-  public static function add()
-  {
-    return file_get_contents(__DIR__ . '/../../templates/cart.html');
-  }
-
-  public static function confirm()
+  public function confirm()
   {
     return file_get_contents(__DIR__ . '/../../templates/success.html');
   }
 
-  public static function borrow()
+  public function borrow()
   {
     return "Borrow a book";
   }

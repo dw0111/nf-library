@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
+
 class HomeController extends AbstractController
 {
-  public static function show()
+  public function show(): Response
   {
-    return file_get_contents(__DIR__ . '/../../templates/index.html');
+    return $this->render('index');
   }
 }

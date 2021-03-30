@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Controller\HomeController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FastRoute;
@@ -51,16 +52,13 @@ class Kernel
     $uri = $request->getRequestUri();
     $routeInfo = $this->dispatcher->dispatch($httpMethod, $uri);
 
-    $response = new Response();
 
     if ($routeInfo[0] === FastRoute\Dispatcher::FOUND) {
-      $content = call_user_func($routeInfo[1], $routeInfo[2]);
-      $response->setContent($content);
+      $obj = new $routeInfo[1][0];
+      $method = $routeInfo[1][1];
+      return call_user_func([$obj, $method], $routeInfo[2]);
     }
 
-    if (!$response->getContent()) {
-      $response = new Response('404 - Not found', 404);
-    }
-    return $response;
+    return new Response('404 - Not found', 404);
   }
 }

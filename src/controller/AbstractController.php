@@ -19,6 +19,8 @@ abstract class AbstractController
   protected function render(string $view): Response
   {
     // load view and set as content
+    $template = file_get_contents(__DIR__ . "/../../templates/$view.html");
+    $this->response->setContent($template);
     return $this->response;
   }
 
@@ -26,20 +28,23 @@ abstract class AbstractController
   {
     // set content type header
     // encode data and set as content
+    $this->response->headers->set('content-type-application', 'json');
+    $this->response->setContent();
     return $this->response;
   }
 
   protected function notFound(string $message): Response
   {
-    // set 404 status code
-    // set messag as content
+    $this->response->setContent($message, 404);
+
     return $this->response;
   }
 
   protected function redirect(string $url): Response
   {
-    // set location header with url
-    //set 302 status code
+    $this->response->setStatusCode(302);
+    $this->response->headers->set('Location', $url);
+
     return $this->response;
   }
 }
