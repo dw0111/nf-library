@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Controller\HomeController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FastRoute;

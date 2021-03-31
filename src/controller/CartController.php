@@ -8,7 +8,7 @@ class CartController extends AbstractController
 {
   public function show(): Response
   {
-    return $this->render('cart');
+    return $this->render('cart/show.html.twig', []);
   }
 
   public function add()
