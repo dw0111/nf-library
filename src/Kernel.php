@@ -23,9 +23,8 @@ class Kernel
 
   private function initContainer()
   {
-    //$this->container = new Container();
     $builder = new ContainerBuilder();
-    $builder->addDefinitions('/../config/services.php');
+    $builder->addDefinitions(__DIR__ . '/../config/services.php');
     $this->container = $builder->build();
   }
 

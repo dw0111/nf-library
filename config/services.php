@@ -1,5 +1,6 @@
 <?php
 
+use Symfony\Component\HttpFoundation\Request;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -11,5 +12,8 @@ return [
       'cache' => __DIR__ . '/../var/cache',
       'auto_reload' => true
     ]);
+  },
+  Request::class => function () {
+    return Request::createFromGlobals();
   }
 ];
